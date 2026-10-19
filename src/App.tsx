@@ -10,7 +10,7 @@ import {
   ExternalLink, Github, Mail, Linkedin, Phone, MapPin, Award, 
   BookOpen, Code2, CheckCircle2, ChevronRight, X, ArrowUp, 
   Menu, Sparkles, Send, FileText, Eye, Layers as LayersIcon,
-  Server, Shield, Users, Calendar, ArrowRight, Check
+  Server, Shield, Users, Calendar, ArrowRight, Check, Copy, ArrowUpRight
 } from 'lucide-react';
 
 interface Project {
@@ -62,22 +62,53 @@ export default function App() {
     let animationFrameId: number | null = null;
     let pointerX = 0;
     let pointerY = 0;
+    let glowX = 0;
+    let glowY = 0;
+    let hasPointerPosition = false;
+
+    const animateCursorGlow = () => {
+      if (!cursorGlow) return;
+
+      const deltaX = pointerX - glowX;
+      const deltaY = pointerY - glowY;
+
+      if (Math.abs(deltaX) + Math.abs(deltaY) < 0.5) {
+        glowX = pointerX;
+        glowY = pointerY;
+        animationFrameId = null;
+      } else {
+        glowX += deltaX * 0.16;
+        glowY += deltaY * 0.16;
+        animationFrameId = requestAnimationFrame(animateCursorGlow);
+      }
+
+      cursorGlow.style.transform = `translate3d(${glowX - 88}px, ${glowY - 88}px, 0)`;
+    };
 
     const handlePointerMove = (event: PointerEvent) => {
       if (event.pointerType !== 'mouse' || !cursorGlow) return;
 
       pointerX = event.clientX;
       pointerY = event.clientY;
-      if (animationFrameId !== null) return;
 
-      animationFrameId = requestAnimationFrame(() => {
-        cursorGlow.style.transform = `translate3d(${pointerX - 88}px, ${pointerY - 88}px, 0)`;
-        cursorGlow.style.opacity = '1';
-        animationFrameId = null;
-      });
+      if (!hasPointerPosition) {
+        glowX = pointerX;
+        glowY = pointerY;
+        hasPointerPosition = true;
+        cursorGlow.style.transform = `translate3d(${glowX - 88}px, ${glowY - 88}px, 0)`;
+      } else if (animationFrameId === null) {
+        animationFrameId = requestAnimationFrame(animateCursorGlow);
+      }
+
+      cursorGlow.style.opacity = '1';
     };
 
     const hideCursorGlow = () => {
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+      hasPointerPosition = false;
       if (cursorGlow) cursorGlow.style.opacity = '0';
     };
 
@@ -338,7 +369,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07090E] text-slate-100 font-sans selection:bg-blue-600 selection:text-white antialiased relative overflow-hidden">
+    <div className="min-h-screen bg-[#07090E] text-slate-100 font-sans selection:bg-blue-600 selection:text-white antialiased relative overflow-clip">
       <div
         ref={cursorGlowRef}
         aria-hidden="true"
@@ -855,65 +886,79 @@ export default function App() {
         </section>
 
         {/* CONTACT SECTION */}
-        <section id="contact" className="py-16 md:py-20">
-          <div className="max-w-7xl mx-auto px-6">
-            
-            <div className="max-w-3xl mx-auto text-center flex flex-col items-center gap-6">
-              <span className="text-xs font-mono text-cyan-400 tracking-wider">06 // GET IN TOUCH</span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-                Have an idea worth building?
+        <section id="contact" aria-labelledby="contact-heading" className="relative isolate overflow-hidden border-b border-slate-800/60 bg-[#0A0E17]/50 py-20 sm:py-24 md:py-28">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="text-center">
+              <h2 id="contact-heading" className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+                Contact Me
               </h2>
-              <p className="text-slate-300 text-base leading-relaxed max-w-xl">
-                I’m interested in AI & Data Science internships, collaborative projects, and opportunities to learn and build useful technology.
+              <p className="mt-3 text-lg font-medium text-slate-400 sm:text-xl">
+                Tell me about your next project.
               </p>
-
-              <div className="flex flex-wrap justify-center items-center gap-6 pt-6">
-                <div className="flex items-center gap-4 p-5 rounded-2xl bg-[#0D121F] border border-slate-800 min-w-[280px]">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center text-cyan-400">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-xs text-slate-400">Email</span>
-                    <button 
-                      onClick={copyEmailToClipboard}
-                      className="text-sm font-semibold text-white hover:text-cyan-400 transition-colors text-left flex items-center gap-2 cursor-pointer"
-                    >
-                      <span>godwinjijo789@gmail.com</span>
-                      {copiedEmail && <span className="text-xs text-emerald-400 font-mono">(Copied!)</span>}
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4 p-5 rounded-2xl bg-[#0D121F] border border-slate-800 min-w-[280px]">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center text-cyan-400">
-                    <Github className="w-5 h-5" />
-                  </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-xs text-slate-400">GitHub Profile</span>
-                    <a 
-                      href="https://github.com/godwinjijo789" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-sm font-semibold text-white hover:text-cyan-400 transition-colors flex items-center gap-1"
-                    >
-                      <span>github.com/godwinjijo789</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4 p-5 rounded-2xl bg-[#0D121F] border border-slate-800 min-w-[280px]">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center text-cyan-400">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-xs text-slate-400">Location</span>
-                    <span className="text-sm font-semibold text-white">Chennai, Tamil Nadu, India</span>
-                  </div>
-                </div>
-              </div>
+              <button
+                type="button"
+                onClick={copyEmailToClipboard}
+                className="group mt-6 inline-flex min-w-48 items-center justify-center gap-2.5 rounded-full border-2 border-violet-400 bg-violet-500/10 px-7 py-3.5 text-sm font-bold text-white shadow-[0_0_28px_rgba(139,92,246,0.35),inset_0_0_18px_rgba(139,92,246,0.12)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-violet-500/20 hover:shadow-[0_0_38px_rgba(139,92,246,0.5),inset_0_0_20px_rgba(139,92,246,0.18)] active:translate-y-0"
+                aria-label={copiedEmail ? 'Email address copied' : 'Copy email address'}
+              >
+                {copiedEmail ? 'Email copied' : 'Copy email'}
+                {copiedEmail ? <Check className="h-4 w-4 text-violet-200" /> : <Copy className="h-4 w-4 transition-transform group-hover:scale-110" />}
+              </button>
             </div>
 
+            <div className="mt-20 grid gap-12 text-center sm:mt-24 sm:gap-8 md:grid-cols-2 lg:mt-28 lg:grid-cols-3 lg:gap-16">
+              <div>
+                <h3 className="text-xl font-bold text-violet-400">Email</h3>
+                <a
+                  href="mailto:godwinjijo789@gmail.com"
+                  className="mt-2 inline-block break-all text-base font-medium text-slate-200 transition-colors hover:text-violet-300 sm:text-lg"
+                >
+                  godwinjijo789@gmail.com
+                </a>
+
+                <h3 className="mt-8 text-xl font-bold text-violet-400">Location</h3>
+                <p className="mt-2 text-base font-medium text-slate-300 sm:text-lg">Chennai, Tamil Nadu, India</p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold text-violet-400">Social Media</h3>
+                <ul className="mt-2 space-y-1.5">
+                  <li>
+                    <a
+                      href="https://linkedin.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-lg font-medium text-slate-200 transition-colors hover:text-violet-300"
+                    >
+                      LinkedIn <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/godwinjijo789"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-lg font-medium text-slate-200 transition-colors hover:text-violet-300"
+                    >
+                      GitHub <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="md:col-span-2 md:mx-auto md:w-full md:max-w-lg lg:col-span-1 lg:max-w-none">
+                <h3 className="text-xl font-bold text-violet-400">Write Me &amp; We’ll Talk</h3>
+                <p className="mx-auto mt-2 max-w-xs text-base leading-7 text-slate-300">
+                  Interested in working together? Send me a note and let’s make something useful.
+                </p>
+                <a
+                  href="mailto:godwinjijo789@gmail.com"
+                  className="mt-3 inline-flex items-center gap-2 text-lg font-semibold text-slate-200 transition-colors hover:text-violet-300"
+                >
+                  Get in touch <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
           </div>
         </section>
       </main>
