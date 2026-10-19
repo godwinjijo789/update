@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="37" y1="22" x2="684" y2="344" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3A2A23"/>
+      <stop offset="1" stop-color="#18202A"/>
+    </linearGradient>
+    <linearGradient id="room" x1="350" y1="65" x2="629" y2="270" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5D5AA"/>
+      <stop offset="1" stop-color="#C88D64"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="360" rx="24" fill="url(#bg)"/>
+  <circle cx="93" cy="315" r="120" fill="#F59E0B" fill-opacity=".1"/>
+  <circle cx="637" cy="36" r="113" fill="#FB7185" fill-opacity=".09"/>
+  <rect x="65" y="61" width="254" height="238" rx="20" fill="#101925" stroke="#4A3B38" stroke-width="3"/>
+  <rect x="89" y="84" width="207" height="12" rx="6" fill="#F3D0A0"/>
+  <rect x="89" y="108" width="128" height="7" rx="3.5" fill="#886F61"/>
+  <rect x="89" y="136" width="90" height="93" rx="11" fill="#322A2C"/>
+  <rect x="100" y="147" width="68" height="71" rx="8" fill="url(#room)"/>
+  <rect x="112" y="184" width="46" height="23" rx="6" fill="#7A4938"/>
+  <rect x="118" y="174" width="34" height="14" rx="6" fill="#C47C55"/>
+  <path d="M116 207v6m34-6v6" stroke="#4B3028" stroke-width="3" stroke-linecap="round"/>
+  <rect x="194" y="136" width="102" height="42" rx="10" fill="#202B36"/>
+  <path d="M208 165c12-20 25-27 38-27 14 0 27 7 39 27" stroke="#F59E0B" stroke-width="5" stroke-linecap="round"/>
+  <rect x="194" y="189" width="102" height="40" rx="10" fill="#202B36"/>
+  <rect x="209" y="201" width="72" height="7" rx="3.5" fill="#A88B78"/>
+  <rect x="209" y="214" width="53" height="6" rx="3" fill="#725D53"/>
+  <rect x="89" y="249" width="207" height="28" rx="10" fill="#75482E"/>
+  <circle cx="107" cy="263" r="5" fill="#FDBA74"/>
+  <rect x="121" y="259" width="119" height="7" rx="3.5" fill="#F4D7B6"/>
+  <rect x="244" y="256" width="38" height="14" rx="7" fill="#B4533C"/>
+  <rect x="368" y="58" width="282" height="245" rx="20" fill="url(#room)"/>
+  <rect x="389" y="78" width="105" height="91" rx="10" fill="#E9C39B"/>
+  <path d="M400 157V97h83v60" stroke="#9B684A" stroke-width="5"/>
+  <path d="M414 157v-37h54v37" fill="#B87852"/>
+  <rect x="521" y="78" width="105" height="12" rx="6" fill="#885B43"/>
+  <rect x="521" y="99" width="75" height="7" rx="3.5" fill="#A7785A"/>
+  <rect x="512" y="180" width="105" height="43" rx="13" fill="#9A5B3F"/>
+  <rect x="524" y="166" width="80" height="28" rx="12" fill="#C48762"/>
+  <path d="M520 214v17m89-17v17" stroke="#613D32" stroke-width="5" stroke-linecap="round"/>
+  <rect x="396" y="239" width="230" height="10" rx="5" fill="#A56B49"/>
+  <rect x="396" y="259" width="137" height="7" rx="3.5" fill="#9A6346"/>
+  <rect x="396" y="278" width="95" height="8" rx="4" fill="#3B765F"/>
+  <path d="M503 275h19" stroke="#F5E9D8" stroke-width="4" stroke-linecap="round"/>
+</svg>
