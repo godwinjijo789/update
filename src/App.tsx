@@ -136,12 +136,13 @@ export default function App() {
       title: 'AI-Based CCTV Attendance Management System',
       category: 'Artificial Intelligence / Computer Vision',
       categoryTag: 'AI & Computer Vision',
-      image: '/images/projects/cctv-attendance.svg',
-      imageAlt: 'Illustration of an AI camera and attendance dashboard',
+      image: '/images/projects/cctv-attendence.png',
+      imageAlt: 'AI CCTV attendance project preview',
       objective: 'Explore automated student attendance management using face recognition and camera-based student identification.',
       description: 'An advanced system architecture designed for automated student identification, verification, and attendance logging via live camera streams and face recognition models.',
       techStack: ['Python', 'Face Recognition', 'OpenCV', 'Firebase / Firestore', 'Node.js', 'Scheduled Tasks'],
-      githubUrl: 'https://github.com/godwinjijo789',
+      githubUrl: 'https://github.com/godwinjijo789/InsightFace',
+      liveUrl: 'https://insight-face-omega.vercel.app/',
       overview: 'This project addresses the tedious nature of traditional roll-call attendance in educational institutions by architecting an automated computer vision attendance framework that reliably identifies students via camera feeds.',
       problemStatement: 'Manual attendance logging consumes 10-15 minutes of every lecture hour, prone to proxy attendance, human recording errors, and delayed reporting to institutional administrators and parents.',
       objectivesList: [
@@ -181,7 +182,7 @@ export default function App() {
       description: 'Streamlined automation tool designed to eliminate manual certificate generation friction for college symposia, workshops, and hackathons.',
       techStack: ['Python', 'Pandas', 'ReportLab / Pillow', 'Automation Scripts', 'CLI / GUI'],
       githubUrl: 'https://github.com/godwinjijo789/Certificate-in-Bulk',
-      liveUrl: 'https://github.com/godwinjijo789/Certificate-in-Bulk',
+      liveUrl: 'https://certificate-in-bulk-vert.vercel.app/',
       overview: 'Certificate-in-Bulk is a utility toolkit built to parse participant CSV/Excel spreadsheets and automatically batch-generate personalized certificates with precise typographic placement.',
       problemStatement: 'Event organizers waste hours manually typing participant names into design templates or struggling with rigid mail-merge plugins that frequently misalign text and break typography.',
       objectivesList: [
@@ -214,12 +215,13 @@ export default function App() {
       title: 'Sana Pets',
       category: 'Web Development',
       categoryTag: 'Web Development',
-      image: '/images/projects/sana-pets.svg',
-      imageAlt: 'Illustration of a friendly pet care website',
+      image: '/images/projects/sana-pets.png',
+      imageAlt: 'Sana Pets project preview',
       objective: 'A pet-business website concept for presenting a pet business and its offerings online.',
       description: 'A modern, responsive web application concept crafted for a specialized pet care and services business with administrator access control.',
       techStack: ['React', 'Vite', 'Tailwind CSS', 'Firebase', 'JavaScript'],
-      githubUrl: 'https://github.com/godwinjijo789',
+      githubUrl: 'https://github.com/godwinjijo789/sana-pets-accessories',
+      liveUrl: 'https://sana-pets-accessories.vercel.app/',
       overview: 'Sana Pets provides an elegant digital storefront and service showcase for pet care, grooming, and specialized nutrition offerings.',
       problemStatement: 'Local pet care providers lack professional, fast-loading digital web presence that clearly communicates services without bloated e-commerce carts.',
       objectivesList: [
@@ -252,13 +254,13 @@ export default function App() {
       title: 'Movie Audience Review Dataset',
       category: 'Data Preparation / Natural Language Processing',
       categoryTag: 'Data Science / NLP',
-      image: '/images/projects/movie-reviews.svg',
-      imageAlt: 'Illustration of movie reviews and data analysis charts',
+      image: '/images/projects/movie-reviews.png',
+      imageAlt: 'Movie audience review dataset project preview',
       objective: 'Prepare a structured movie audience-review dataset suitable for text-data exploration and future NLP experiments.',
       description: 'A meticulously cleaned and structured dataset comprising 100 audience reviews with fields for review text, audience name, and gender, optimized for EDA and NLP text preprocessing.',
       techStack: ['Python', 'Pandas', 'NLTK', 'Data Preprocessing', 'EDA'],
-      githubUrl: 'https://github.com/godwinjijo789',
-      liveUrl: '#',
+      githubUrl: 'https://github.com/godwinjijo789/-Sentiment-AI',
+      liveUrl: 'https://sentiment-analysis-intelligence.streamlit.app/',
       hasDataset: true,
       overview: 'This project focuses on data collection, cleaning, and structuring of 100 movie audience reviews to form a reliable benchmark for exploratory data analysis and sentiment studies.',
       problemStatement: 'Raw audience feedback gathered from social platforms is unstructured, noisy, and unformatted, making it difficult to run preliminary NLP sentiment classifiers without prior normalization.',
@@ -292,12 +294,13 @@ export default function App() {
       title: 'Online Promotion Strategy for a Local Furniture Showroom',
       category: 'Digital Marketing / Business Strategy',
       categoryTag: 'Business Strategy',
-      image: '/images/projects/furniture-promotion.svg',
-      imageAlt: 'Illustration of a modern furniture showroom promotion',
+      image: '/images/projects/furniture-promotion.png',
+      imageAlt: 'Furniture showroom promotion project preview',
       objective: 'Develop an online promotion strategy to improve the visibility of a local furniture showroom and attract customer enquiries.',
       description: 'A comprehensive digital marketing and customer acquisition blueprint tailored for a local furniture enterprise seeking online visibility.',
       techStack: ['Digital Marketing', 'Instagram & Facebook Ads', 'Google Business Profile', 'Content Strategy', 'Analytics'],
-      githubUrl: 'https://github.com/godwinjijo789',
+      githubUrl: 'https://github.com/godwinjijo789/E.T.R-Furniture',
+      liveUrl: 'https://etrfurniture.vercel.app/',
       overview: 'A strategic framework outlining digital channels, content calendars, and local SEO tactics to bridge local furniture craftsmanship with digital buyer discovery.',
       problemStatement: 'Traditional furniture showrooms rely entirely on walk-in foot traffic, missing high-intent local buyers who research living room and bedroom setups online before visiting physical stores.',
       objectivesList: [
@@ -330,7 +333,6 @@ export default function App() {
   const filteredProjects = projectFilter === 'All' 
     ? projectsData 
     : projectsData.filter(p => p.categoryTag === projectFilter);
-  const projectPreviewUrl = 'https://sentiment-analysis-intelligence.streamlit.app/';
 
   const skillsData = [
     {
@@ -713,16 +715,18 @@ export default function App() {
                       <span>About</span>
                     </button>
 
-                    <a
-                      href={projectPreviewUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Preview ${project.title} (opens in a new tab)`}
-                      className="justify-self-center px-3.5 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20 hover:text-cyan-200 text-sm font-semibold transition-colors inline-flex items-center gap-2"
-                    >
-                      <span>Preview</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
+                    {project.liveUrl && project.liveUrl !== '#' && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Preview ${project.title} (opens in a new tab)`}
+                        className="justify-self-center px-3.5 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20 hover:text-cyan-200 text-sm font-semibold transition-colors inline-flex items-center gap-2"
+                      >
+                        <span>Preview</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
 
                     {project.githubUrl && (
                       <a

@@ -21,4 +21,18 @@
       display: none;
     }
   }
+
+  @media (hover: none) and (pointer: coarse) {
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 120ms ease, filter 120ms ease;
+    }
+
+    button:active,
+    a:active {
+      transform: scale(0.97);
+      filter: brightness(0.88);
+    }
+  }
 }
