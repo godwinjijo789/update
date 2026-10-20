@@ -48,6 +48,7 @@ export default function App() {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const cursorGlowRef = useRef<HTMLDivElement>(null);
+  const touchGlowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,10 +57,15 @@ export default function App() {
     window.addEventListener('scroll', handleScroll);
 
     const cursorGlow = cursorGlowRef.current;
+    const touchGlow = touchGlowRef.current;
     const supportsCursorGlow = window.matchMedia(
       '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)'
     ).matches;
+    const supportsTouchGlow = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     let animationFrameId: number | null = null;
+    let touchAnimationFrameId: number | null = null;
+    let touchX = 0;
+    let touchY = 0;
     let pointerX = 0;
     let pointerY = 0;
     let glowX = 0;
@@ -112,10 +118,39 @@ export default function App() {
       if (cursorGlow) cursorGlow.style.opacity = '0';
     };
 
+    const updateTouchGlow = (event: TouchEvent) => {
+      const touch = event.touches[0] ?? event.changedTouches[0];
+      if (!touch || !touchGlow) return;
+
+      touchX = touch.clientX;
+      touchY = touch.clientY;
+      if (touchAnimationFrameId !== null) return;
+
+      touchAnimationFrameId = requestAnimationFrame(() => {
+        touchGlow.style.transform = `translate3d(${touchX - 36}px, ${touchY - 36}px, 0)`;
+        touchGlow.style.opacity = '1';
+        touchAnimationFrameId = null;
+      });
+    };
+
+    const hideTouchGlow = () => {
+      if (touchAnimationFrameId !== null) {
+        cancelAnimationFrame(touchAnimationFrameId);
+        touchAnimationFrameId = null;
+      }
+      if (touchGlow) touchGlow.style.opacity = '0';
+    };
+
     if (supportsCursorGlow) {
       window.addEventListener('pointermove', handlePointerMove);
       document.addEventListener('pointerleave', hideCursorGlow);
       window.addEventListener('blur', hideCursorGlow);
+    }
+    if (supportsTouchGlow) {
+      window.addEventListener('touchstart', updateTouchGlow, { passive: true });
+      window.addEventListener('touchmove', updateTouchGlow, { passive: true });
+      window.addEventListener('touchend', hideTouchGlow, { passive: true });
+      window.addEventListener('touchcancel', hideTouchGlow, { passive: true });
     }
 
     return () => {
@@ -125,7 +160,14 @@ export default function App() {
         document.removeEventListener('pointerleave', hideCursorGlow);
         window.removeEventListener('blur', hideCursorGlow);
       }
+      if (supportsTouchGlow) {
+        window.removeEventListener('touchstart', updateTouchGlow);
+        window.removeEventListener('touchmove', updateTouchGlow);
+        window.removeEventListener('touchend', hideTouchGlow);
+        window.removeEventListener('touchcancel', hideTouchGlow);
+      }
       if (animationFrameId !== null) cancelAnimationFrame(animationFrameId);
+      if (touchAnimationFrameId !== null) cancelAnimationFrame(touchAnimationFrameId);
     };
   }, []);
 
@@ -379,6 +421,16 @@ export default function App() {
         style={{
           background: 'radial-gradient(circle, rgba(34, 211, 238, 0.14) 0%, rgba(59, 130, 246, 0.08) 38%, transparent 72%)',
           transform: 'translate3d(-200px, -200px, 0)',
+          willChange: 'transform, opacity'
+        }}
+      />
+      <div
+        ref={touchGlowRef}
+        aria-hidden="true"
+        className="touch-glow pointer-events-none fixed left-0 top-0 z-[60] h-[72px] w-[72px] rounded-full opacity-0 transition-opacity duration-200"
+        style={{
+          background: 'radial-gradient(circle, rgba(34, 211, 238, 0.3) 0%, rgba(59, 130, 246, 0.16) 42%, transparent 74%)',
+          transform: 'translate3d(-100px, -100px, 0)',
           willChange: 'transform, opacity'
         }}
       />
